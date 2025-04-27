@@ -9,6 +9,7 @@ import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Loader } from "@/components/Loader";
 import Post from "@/components/Post";
+import StoriesSection from "@/components/StoriesSection";
 
 export default function Index() {
   const {signOut} = useAuth();
@@ -42,19 +43,6 @@ export default function Index() {
   );
 };
 
-const StoriesSection = () => {
-  return (
-    <ScrollView
-      horizontal
-      showsHorizontalScrollIndicator={false}
-      style={styles.storiesContainer}
-    >
-      {STORIES.map((story) => (
-        <Story key={story.id} story={story} />
-      ))}
-    </ScrollView>
-  )
-}
 
 const NoPostsFound = () => (
   <View

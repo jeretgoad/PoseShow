@@ -165,8 +165,18 @@ export const deletePost = mutation({
             .withIndex("by_post", (q) => q.eq("postId", args.postId))
             .collect();
         
-            for (const bookmark of bookmarks) {
+        for (const bookmark of bookmarks) {
             await ctx.db.delete(bookmark._id);
+        }
+
+         // Delete associated notifications
+         const notifications = await ctx.db
+            .query("notifications")
+            .withIndex("by_post", (q) => q.eq("postId", args.postId))
+            .collect();
+     
+        for (const notification of notifications) {
+            await ctx.db.delete(notification._id);
         }
 
         // delete the storage file

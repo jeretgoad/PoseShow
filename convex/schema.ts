@@ -37,7 +37,7 @@ export default defineSchema({
       v.literal("comment"),
       v.literal("follow")
     ),
-  }).index("by_receiver", ["receiverId"]),
+  }).index("by_receiver", ["receiverId"]).index("by_post", ["postId"]),
   posts: defineTable({
     caption: v.optional(v.string()),
     comments: v.float64(),
