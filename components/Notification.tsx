@@ -11,10 +11,10 @@ export default function Notification({ notification }: any) {
     return (
       <View style={styles.notificationItem}>
         <View style={styles.notificationContent}>
-          <Link href={`/notifications`}> 
+          <Link href={`/user/${notification.sender._id}`} asChild> 
             <TouchableOpacity style={styles.avatarContainer}>
               <Image
-                source={notification.sender.image}
+                source={notification.sender.image} 
                 style={styles.avatar}
                 contentFit="cover"
                 transition={200}
@@ -33,11 +33,12 @@ export default function Notification({ notification }: any) {
           </Link>
   
           <View style={styles.notificationInfo}>
-            <Link href={`/notifications`} asChild>
+            <Link href={`/user/${notification.sender._id}`} asChild>
                 <TouchableOpacity>
                   <Text style={styles.username}>{notification.sender.username}</Text>
                 </TouchableOpacity>
             </Link>
+            
             <Text style={styles.action}>
               {notification.type === "follow" 
               ? "started following you" 
