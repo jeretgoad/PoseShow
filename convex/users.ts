@@ -50,6 +50,22 @@ export const getUserByClerkId = query({
     }
 })
 
+export const updateProfile = mutation({
+    args: {
+        fullname: v.string(),
+        bio: v.optional(v.string()),
+    },
+    handler: async (ctx, args) => {
+        const currentUser = await getAuthenticatedUser(ctx);
+
+        // Update user in database
+        await ctx.db.patch(currentUser._id, {
+            fullname: args.fullname,
+            bio: args.bio,
+        });
+    },
+});
+
 export async function getAuthenticatedUser(ctx:QueryCtx | MutationCtx) {
     const identity = await ctx.auth.getUserIdentity();
     if (!identity) throw new Error("User unauthorized");
@@ -63,3 +79,4 @@ export async function getAuthenticatedUser(ctx:QueryCtx | MutationCtx) {
 
     return currentUser;
 };
+
